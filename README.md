@@ -1,81 +1,98 @@
 # Stardate Converter (Java)
 
-A simple Java application that converts standard Earth dates into **Star Trek–style stardates**, inspired by the formatting used in Star Trek: The Next Generation and Voyager.
+A Java desktop app that converts Earth dates into a Voyager-inspired stardate using a simplified year-and-day scaling formula.
 
-This project demonstrates basic Java skills including date handling, arithmetic calculations, user input, and console output. It was built as part of my software development practice and coursework.
+This project started as an early practice build before the Voyager database project. The current version keeps the LCARS-inspired look, but upgrades the codebase into a cleaner Maven app with a more stable Swing layout and two-way conversion support.
 
----
+## Version 1.0 Highlights
 
-## 🚀 Features
-- Converts a `YYYY-MM-DD` date into an approximate stardate.
-- Lightweight, fast, and easy to run from the command line.
-- Fully self-contained Java source file.
-- Demonstrates clean code structure and basic Java class design.
+- LCARS-style Swing interface with better alignment and spacing
+- Earth date to stardate and stardate back to Earth date conversion
+- Dedicated `StardateCalculator` class for reusable conversion logic
+- Keyboard-friendly input with Enter-to-convert support
+- `Today` and `Clear` actions for quicker testing
+- JUnit tests covering date conversion behavior
 
----
+## Stardate Formula
 
-## 🛠️ Technologies Used
-- **Java 17+**
-- **VS Code** with Git + GitHub
-- **GitHub Copilot** assisted coding
+This app uses a simplified custom formula rather than a canon-accurate Trek formula:
 
----
+`stardate = 1000 * (year - 2323) + fractional progress through the current year`
 
-##  Project Structure
+Details:
 
+- Base year: `2323`
+- Scale: `1000` stardate units per Earth year
+- Fractional component: based on day-of-year
+- Leap years: handled using `366` days
+
+That makes the output predictable and easy to reuse in other projects, even if it is not meant to exactly match on-screen Trek canon.
+
+## Project Structure
+
+```text
 stardate-converter-java
-├── src
-│ └── StarDateConverter.java
-├── .gitignore
-└── README.md
+|-- src
+|   |-- main
+|   |   `-- java
+|   |       `-- com
+|   |           `-- raven8472
+|   |               `-- stardate
+|   |                   |-- StarDateConverter.java
+|   |                   |-- StarDateConverterApp.java
+|   |                   `-- StardateCalculator.java
+|   `-- test
+|       `-- java
+|           `-- com
+|               `-- raven8472
+|                   `-- stardate
+|                       `-- StardateCalculatorTest.java
+|-- pom.xml
+`-- README.md
+```
 
----
+## Running The App
 
-##  How to Run the Program
+Requirements:
 
-### 1. Clone the repository
+- Java 21
+- Maven 3.9+
+
+Run the desktop app:
+
 ```bash
-git clone https://github.com/Raven8472/stardate-converter-java.git
+mvn compile
+java -cp target/classes com.raven8472.stardate.StarDateConverterApp
+```
 
+Build a runnable JAR:
 
-cd stardate-converter-java
+```bash
+mvn package
+java -jar target/stardate-converter-1.0.0.jar
+```
 
+Run the tests:
 
-javac src/StarDateConverter.java
+```bash
+mvn test
+```
 
+## Future Ideas
 
-java src/StarDateConverter
+- Reverse conversion from stardate to Earth date
+- Multiple formula profiles for different Trek eras
+- Conversion history panel
+- Optional API version for use in other Voyager tools
 
+## Author
 
-Enter a date (YYYY-MM-DD):
-2025-11-27
-Stardate: 78215.3
+Dakota Leahy  
+IT student, database enthusiast, and Navy veteran
 
+- GitHub: https://github.com/Raven8472
+- LinkedIn: https://www.linkedin.com/in/dakotaleahy/
 
- Future Enhancements
+## Project Context
 
-Planned improvements include:
-
-Reverse conversion (stardate → Earth date)
-
-More accurate stardate formula options (TOS, TNG, Voyager)
-
-GUI version (LCARS-themed interface)
-
-Packaging as a .jar file for easy execution
-
-Web API version for online stardate conversion
-
- Author
-
-Dakota Leahy
-IT Student • Database Enthusiast • Navy Veteran
-Passionate about backend development, cloud technologies, and building LCARS-inspired interfaces.
-
-LinkedIn: https://www.linkedin.com/in/dakotaleahy/
-
-GitHub: https://github.com/Raven8472
-
- Live Long and Program
-
-This project is part of a larger initiative to build a fully interactive LCARS-themed Voyager crew database for education, fun, and portfolio development.
+This converter was built as an early stepping stone toward a larger LCARS-inspired Voyager crew database project for learning, portfolio work, and a bit of Star Trek fun.
